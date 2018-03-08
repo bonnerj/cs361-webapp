@@ -73,7 +73,7 @@ app.post('/login', function(req,res){
 
 
 
-app.get('/register/validate',function(req,res){
+app.post('/register/validate',function(req,res){
   //console.log(req.query);
   
     // insert form values into table
