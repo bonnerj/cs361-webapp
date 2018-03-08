@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+		<meta charset="UTF-8" />
+		<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+    </head>
+
+    <body>
+    	
+    	{{> navbar }}
+
+		<h1>Create a New Account</h1>
+
+		<form class="registerForm" method="GET" action="/register/validate">
+			<p class="field">
+				<i class="far fa-user"></i>
+				<input type="email" name="email" placeholder="Email address" required>
+			</p>
+
+			<p class="field">
+				<input type="text" name="userName" id="userName" placeholder="Username" required>
+			</p>
+
+			<p class="field">
+				<i class="fas fa-unlock"></i>
+				<input type="password" id="password" name="password" placeholder="Password" required>				
+			</p>
+
+			<p class="field">
+				<input type="password" id="verifyPassword" placeholder="Verify Password" required>			
+			</p>
+
+			<p class="instructions">Passwords must be at least 8 characters</p>
+
+			<p class="submit">
+				<button type="submit">
+				<i class="fas fa-arrow-alt-circle-right"></i>
+				</button>
+			</p>
+		</form>
+
+	</body>
+	<script src="app.js"> </script>
+
+
+</html>
+
