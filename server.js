@@ -39,6 +39,46 @@ app.get('/register',function(req,res){
   res.render("registerForm");
 });
 
+
+
+// post login info
+app.post('/login', function(req,res){
+ //do stuff 
+  
+
+  var username = req.body.userName;
+  var password = req.body.password;
+  
+  // query database for username
+  mysql.pool.query('SELECT * FROM employee WHERE username ?", [req.body.userName], function(err, rows, fields){
+                    if(err){
+                      next(err);
+                      return;
+                    }
+
+
+  }
+  
+  // if username DNE, error
+  if (!rows) {
+    // error - username does not exist
+  }
+
+    // if username exists, query the password
+  else {
+    
+    
+        // if password matches, print success
+        if (password === rows[0].pword)
+        {
+           // print success 
+        }
+  }
+  
+}
+
+
+
 app.get('/register/validate',function(req,res){
   //console.log(req.query);
   
