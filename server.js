@@ -57,6 +57,7 @@ app.post('/login', function(req,res){
    // if username DNE, error
    if (!rows) {
      // error - username does not exist
+     console.log("error: username does not exist");
   }
 
   // if username exists, query the password
@@ -66,6 +67,7 @@ app.post('/login', function(req,res){
         if (password === rows[0].pword)
         {
            // print success 
+          console.log("login success!");
         }
   }
 
