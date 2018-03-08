@@ -47,7 +47,7 @@ app.post('/login', function(req,res){
   
   
    // query database for username
-   mysql.pool.query('SELECT * FROM employee WHERE username ?", [req.body.userName], function(err, rows, fields){
+   mysql.pool.query('SELECT * FROM employee WHERE username ?', [req.body.userName], function(err, rows, fields){
                     if(err){
                       next(err);
                       return;
