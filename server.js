@@ -79,8 +79,7 @@ app.post('/register/validate',function(req,res){
   //console.log(req.query);
   
     // insert form values into table
-    mysql.pool.query("INSERT INTO employees (`username`, `email`, `pword`, `isValidated`, `failedAttempts`)
-           VALUES (?,?,?,?,?)", [req.body.userName, req.body.email, req.body.password, 0, 0], function(err, result){
+    mysql.pool.query("INSERT INTO employees (`username`, `email`, `pword`, `isValidated`, `failedAttempts`) VALUES (?,?,?,?,?)", [req.body.userName, req.body.email, req.body.password, 0, 0], function(err, result){
               if(err){
                 next(err);
                   return;
