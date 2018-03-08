@@ -24,6 +24,7 @@ app.set('port', 50111);
 app.use(express.static("public"));
 //app.engine('handlebars', handlebars.engine);
 app.set("view engine", "handlebars");
+app.set('mysql', mysql);
 app.engine('handlebars', handlebars({
     defaultLayout: 'main',
   //helpers: require(__dirname + "/public/js/helpers.js").helpers,        // Use helper functions if needed
