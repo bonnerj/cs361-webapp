@@ -46,66 +46,81 @@ app.get('/userLogin', function(req,res){
 
 app.post('/login', function(req,res){
   
-   var username = req.body.userName;
-   var password = req.body.password;
+  //console.log(req.body);
+  var username = req.body.userName;
+  var password = req.body.password;
   
-  
-   // query database for username
-   mysql.pool.query('SELECT * FROM employee WHERE username ?', [req.body.userName], function(err, rows, fields){
-                    if(err){
-                      next(err);
-                      return;
-                    }
-   });
+  // query database for username
+  mysql.pool.query('SELECT * FROM employee WHERE username=?', [req.body.userName], function(err, rows, fields){
+    if(err){
+      next(err);
+      return;
+    }
+    // if username DNE, error
+    if (!rows) {
+    // error - username does not exist
+      console.log("error: username does not exist");
+    }
 
-   // if username DNE, error
-   if (!rows) {
-     // error - username does not exist
-     console.log("error: username does not exist");
-  }
-
-  // if username exists, query the password
-  else {
-      
-        // if password matches, print success
-        if (password === rows[0].pword)
-        {
-           // print success 
-          console.log("login success!");
-        }
-  }
-
+    // if username exists, query the password
+    else {
+      // if password matches, print success
+      if (password === rows[0].pword)
+      {
+        // print success - reset failedAttempts
+        console.log("login success!");
+        mysql.pool.query('UPDATE employee SET failedAttempts=? WHERE username=?', 
+          [rows[0].failedAttempts + 1, rows[0].username], function(err, rows, fields){
+          if(err){
+            next(err);
+            return;
+          }
+        })
+      }
+      else {
+        // login failed - increment failedAttempts
+        console.log("login failed");
+        mysql.pool.query('UPDATE employee SET failedAttempts=? WHERE username=?', 
+          [rows[0].failedAttempts + 1, rows[0].username], function(err, rows, fields){
+          if(err){
+            next(err);
+            return;
+          }
+        })  
+      }
+    }
+  });
 });
 
 
 
 app.post('/register/validate',function(req,res){
-  //console.log(req.query);
+  //console.log(req.body);
   
-    // insert form values into table
-    mysql.pool.query("INSERT INTO employees (`username`, `email`, `pword`, `isValidated`, `failedAttempts`) VALUES (?,?,?,?,?)", [req.body.userName, req.body.email, req.body.password, 0, 0], function(err, result){
-              if(err){
-                next(err);
-                  return;
-              }
-          });
+  //insert form values into table
+  mysql.pool.query("INSERT INTO employee (`username`, `email`, `pword`, `isValidated`, `failedAttempts`) VALUES (?,?,?,?,?)", [req.body.userName, req.body.email, req.body.password, 0, 0], function(err, result){
+    if(err){
+      next(err);
+      return;
+    }
+  });
     
 
-      let HelperOptions = {
-        from: '"John" <noreply.group9@gmail.com',
-        to: 'noreply.group9@gmail.com',
-        subject: 'Verfication Email',                                                                                         //identifier
-        text: 'Hello,\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + req.headers.host + '\/userregister' + '?userName=' + req.query.userName + '.\n'
-    };
+  let HelperOptions = {
+    from: '"Group9" <noreply.group9@gmail.com',
+    to: req.body.email,
+    subject: 'Verfication Email',                                                                                         //identifier
+    text: 'Hello,\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + req.headers.host + '\/userregister' + '?userName=' + req.body.userName + '.\n'
+  };
 
-    transporter.sendMail(HelperOptions, (error, info) => {
-        if (error) {
-            return console.log(error);
-        }
-        //console.log("The message successfully was sent!");
-        // Uncomment to see the email status sent
-        //console.log(info);
-    });
+  transporter.sendMail(HelperOptions, (error, info) => {
+    if (error) {
+      return console.log(error);
+    }
+    //console.log("The message successfully was sent!");
+    // Uncomment to see the email status sent
+    //console.log(info);
+  });
   res.render("validate");
 });
 
