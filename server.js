@@ -70,7 +70,7 @@ app.post('/login', function(req,res){
         // print success - reset failedAttempts
         console.log("login success!");
         mysql.pool.query('UPDATE employee SET failedAttempts=? WHERE username=?', 
-          [rows[0].failedAttempts + 1, rows[0].username], function(err, rows, fields){
+          [0, rows[0].username], function(err, rows, fields){
           if(err){
             next(err);
             return;
