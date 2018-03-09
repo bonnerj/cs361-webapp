@@ -39,6 +39,10 @@ app.get('/register',function(req,res){
   res.render("registerForm");
 });
 
+app.get('/loginPage', function(req,res){
+  res.render("login")
+});
+
 
 app.post('/login', function(req,res){
   

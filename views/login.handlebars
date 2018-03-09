@@ -15,10 +15,24 @@
 
 		<h1>Log into your account</h1>
 
-		<form method="POST" action="/login">
-			Username: <input type="text" name="userName"><br>
-     			Password: <input type="text" name="password"><br>
-		      <input type="submit" value="Submit">
+		<form class="registerForm" method="POST" action="/login">
+
+			<p class="field">
+				<i class="far fa-user"></i>
+				<input type="text" name="userName" placeholder="User Name" required> <br>
+			</p>
+
+			<p class="field">
+				<i class="fas fa-unlock"></i>
+     			<input type="password" name="password" placeholder="Password" required ><br>
+     		</p>
+
+     		<p class="submit">
+		      	<button type="submit" value="Submit">
+		      	<i class="fas fa-arrow-alt-circle-right"></i>
+		      </button>
+		  	</p>
+
 		</form>
 
 	</body>
