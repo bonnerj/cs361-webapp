@@ -1,0 +1,36 @@
+{{> navbar}}
+
+
+<div>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<h1> Welcome to  {{this.username}} 's Profile Page </h1>
+
+<h3> USERNAME:  {{this.username}}</h3>
+
+<form class="editForm" method="POST" action="/profile/edit">
+		<input type="hidden" value="{{this.id}}"" name="id">
+
+			<p class="field">
+				<input type="text" name="userName" value="{{this.username}}">
+			</p>
+
+<h3> EMAIL ADDRESS: {{this.email}} </h3>
+			<p class="field">
+				<input type="email" name="email" value="{{this.email}}">
+			</p>
+
+<h3> PASSWORD </h3>
+			<p class="field">
+				<input type="password" name="password" value="{{this.pword}}">
+			</p>
+
+</div>
+<br>
+<br>
+<button class="btn-sm btn-submit" type="submit" id="update">Update Information</button>
+</form>

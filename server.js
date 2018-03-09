@@ -45,7 +45,7 @@ app.get('/userLogin', function(req,res){
 
 
 app.post('/login', function(req,res){
-  
+  var context = {}; 
   //console.log(req.body);
   var username = req.body.userName;
   var password = req.body.password;
@@ -56,6 +56,9 @@ app.post('/login', function(req,res){
       next(err);
       return;
     }
+    context = rows[0];
+    console.log(rows[0]);
+
     // if username DNE, error
     if (!rows) {
     // error - username does not exist
@@ -75,8 +78,12 @@ app.post('/login', function(req,res){
             next(err);
             return;
           }
+
+          //console.log(context);
+          res.render('profile', context);
         })
       }
+
       else {
         // login failed - increment failedAttempts
         console.log("login failed");
@@ -92,6 +99,19 @@ app.post('/login', function(req,res){
   });
 });
 
+
+app.post('/profile/edit',function(req,res){
+  console.log(req.body);
+  
+  //insert form values into table
+  mysql.pool.query("UPDATE employee SET username=?, email=?, pword=? WHERE id=?", [req.body.userName, req.body.email, req.body.password, req.body.id], function(err, result){
+    if(err){
+      next(err);
+      return;
+    }
+    res.send("SUCCESS!");
+  });
+});
 
 
 app.post('/register/validate',function(req,res){
