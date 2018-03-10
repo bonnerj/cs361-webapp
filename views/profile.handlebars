@@ -7,21 +7,22 @@
 
 	<h3> USERNAME:  {{this.username}}</h3>
 
-	<form class="editForm" method="POST" action="/profile/edit">
-			<input type="hidden" value="{{this.id}}"" name="id">
+	<form class="editForm" method="POST" action="/profileEdit">
+				
+				<input type="hidden" value="{{this.id}}"" name="id">
 
 				<p class="field">
-					<input type="text" name="userName" value="{{this.username}}">
+					<input type="text" name="userName" value="{{this.username}}" required>
 				</p>
 
 	<h3> EMAIL ADDRESS: {{this.email}} </h3>
 				<p class="field">
-					<input type="email" name="email" value="{{this.email}}">
+					<input type="email" name="email" value="{{this.email}}" required>
 				</p>
 
 	<h3> PASSWORD </h3>
 				<p class="field">
-					<input type="password" name="password" value="{{this.pword}}">
+					<input type="password" name="password" value="{{this.pword}}" required>
 				</p>
 
 		<button class="btn-sm btn-submit" type="submit" id="update">Update Information</button>
