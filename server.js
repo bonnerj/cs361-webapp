@@ -61,7 +61,7 @@ app.post('/login', function(req,res){
       return;
     }
     context = rows[0];
-    console.log(rows[0]);
+    //console.log(rows[0]);
 
     // if username DNE, error
     if (!rows) {
@@ -117,6 +117,7 @@ app.post('/profile/edit',function(req,res){
   });
 });
 
+
 app.post('/forgotPass/reset',function(req,res){
   //console.log(req.body);
    var newPassword = req.body.password;
@@ -127,7 +128,7 @@ app.post('/forgotPass/reset',function(req,res){
       next(err);
       return;
     }
-	
+
     context = rows[0];
     console.log(rows[0]);
 
@@ -139,13 +140,16 @@ app.post('/forgotPass/reset',function(req,res){
 
     // if username/email is found 
     else {
-      mysql.pool.query("UPDATE employee SET pword=? WHERE username=? AND email=?", [password, rows[0].username, rows[0].email], function(err, rows, fields){
+      mysql.pool.query("UPDATE employee SET pword=? WHERE username=? AND email=?", [newPassword, rows[0].username, rows[0].email], function(err, rows, fields){
         if(err){
           next(err);
           return;
         }
-		res.render("login");
-		
+      })
+    }
+
+    res.redirect("/userLogin");
+
 	  });
 });
 
