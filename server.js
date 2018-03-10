@@ -47,9 +47,9 @@ app.get('/forgotPassword', function(req,res){
   res.render("forgotPass")
 })
 
-
 app.post('/login', function(req,res){
   var context = {}; 
+  var msg = {};
   //console.log(req.body);
   var username = req.body.userName;
   var password = req.body.password;
@@ -61,18 +61,23 @@ app.post('/login', function(req,res){
       return;
     }
     context = rows[0];
-    //console.log(rows[0]);
 
     // if username DNE, error
-    if (!rows) {
+    if (context == undefined) {
     // error - username does not exist
       console.log("error: username does not exist");
+      msg.status = "Invalid username or password. Please try again.";
+      res.render('login', msg);
     }
 
     // if username exists, query the password
     else {
+      if (rows[0].failedAttempts >= 5) {
+        msg.status = "The referenced account is now locked. Please contact your administrator.";
+        res.render('login', msg);
+      }
       // if password matches, print success
-      if (password === rows[0].pword)
+      else if (password === rows[0].pword)
       {
         // print success - reset failedAttempts
         console.log("login success!");
@@ -83,6 +88,7 @@ app.post('/login', function(req,res){
             return;
           }
 
+          //console.log(context);
           res.render('profile', context);
         })
       }
@@ -91,17 +97,24 @@ app.post('/login', function(req,res){
         // login failed - increment failedAttempts
         console.log("login failed");
         mysql.pool.query('UPDATE employee SET failedAttempts=? WHERE username=?', 
-          [rows[0].failedAttempts + 1, rows[0].username], function(err, rows, fields){
+          [rows[0].failedAttempts + 1, rows[0].username], function(err){
           if(err){
             next(err);
             return;
+          }
+          if (rows[0].failedAttempts >= 4) {
+            msg.status = "The referenced account is now locked. Please contact your administrator.";
+            res.render('login', msg);
+          }
+          else  {
+          msg.status = "Invalid username or password. Please try again.";
+          res.render('login', msg);
           }
         })  
       }
     }
   });
 });
-
 
 app.post('/profileEdit',function(req,res){
    var context = {};
