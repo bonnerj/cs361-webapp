@@ -104,17 +104,29 @@ app.post('/login', function(req,res){
 });
 
 
-app.post('/profile/edit',function(req,res){
-  console.log(req.body);
-  
-  //insert form values into table
-  mysql.pool.query("UPDATE employee SET username=?, email=?, pword=? WHERE id=?", [req.body.userName, req.body.email, req.body.password, req.body.id], function(err, result){
+app.post('/profile/edit',function(res,req){
+   var context = {};
+	
+   mysql.pool.query("SELECT * FROM employee WHERE id=?", [req.body.id], function(err, result){
     if(err){
       next(err);
       return;
     }
-    res.send("SUCCESS!");
+    if(result.length == 1){
+      var curVals = result[0];
+      mysql.pool.query("UPDATE employee SET username=?, email=?, pword=? WHERE id=? ",
+        [req.body.userName || curVals.username, req.body.email || curVals.email, req.body.password || curVals.pword, curVals.id],
+        function(err, result){
+        if(err){
+          next(err);
+          return;
+        }
+        context.results = "Updated " + result.changedRows + " rows.";
+        res.render('/profile/edit',context);
+      });
+    }
   });
+	
 });
 
 
