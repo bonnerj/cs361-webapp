@@ -1,3 +1,4 @@
+
 body {
 	background: url("dust_scratches.png");
     background-size: cover; /*fill up the background*/
@@ -10,6 +11,13 @@ h1{
 	font-weight: 100;
 	text-align: center;
 	padding-top: 50px;
+}
+
+h4 {
+    color: #89e5e5;
+    font-family: 'Georgia', sans-serif;
+    font-weight: 100;
+    padding-top: 50px;
 }
 
 /*Size and Position of Form */
@@ -163,6 +171,8 @@ h1{
     position:relative;
     top:1px;
 }
+
+
 
 
 

@@ -83,7 +83,6 @@ app.post('/login', function(req,res){
             return;
           }
 
-          //console.log(context);
           res.render('profile', context);
         })
       }
@@ -104,7 +103,7 @@ app.post('/login', function(req,res){
 });
 
 
-app.post('/profile/edit',function(res,req){
+app.post('/profileEdit',function(req,res){
    var context = {};
 	
    mysql.pool.query("SELECT * FROM employee WHERE id=?", [req.body.id], function(err, result){
@@ -114,6 +113,7 @@ app.post('/profile/edit',function(res,req){
     }
     if(result.length == 1){
       var curVals = result[0];
+      console.log(curVals);
       mysql.pool.query("UPDATE employee SET username=?, email=?, pword=? WHERE id=? ",
         [req.body.userName || curVals.username, req.body.email || curVals.email, req.body.password || curVals.pword, curVals.id],
         function(err, result){
@@ -121,12 +121,20 @@ app.post('/profile/edit',function(res,req){
           next(err);
           return;
         }
-        context.results = "Updated " + result.changedRows + " rows.";
-        res.render('/profile/edit',context);
+        mysql.pool.query("SELECT * FROM employee WHERE id=?", [req.body.id], function(err, rows, fields){
+          if(err){
+          next(err);
+          return;
+        }
+        context=rows[0]
+        console.log(context);
+
+        //context.results = "Updated " + result.changedRows + " rows.";
+        res.render('profile', context);
+        });
       });
     }
   });
-	
 });
 
 
