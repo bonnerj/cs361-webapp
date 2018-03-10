@@ -117,6 +117,38 @@ app.post('/profile/edit',function(req,res){
   });
 });
 
+app.post('/forgotPass/reset',function(req,res){
+  //console.log(req.body);
+   var newPassword = req.body.password;
+   
+  // query database for username
+  mysql.pool.query('SELECT * FROM employee WHERE username=? AND email=?', [req.body.userName, req.body.email], function(err, rows, fields){
+    if(err){
+      next(err);
+      return;
+    }
+	
+    context = rows[0];
+    console.log(rows[0]);
+
+	// if username DNE, error
+    if (!rows) {
+       // error - username/email combo does not exist
+       console.log("error: username/email combination not found");
+    }
+
+    // if username/email is found 
+    else {
+      mysql.pool.query("UPDATE employee SET pword=? WHERE username=? AND email=?", [password, rows[0].username, rows[0].email], function(err, rows, fields){
+        if(err){
+          next(err);
+          return;
+        }
+		res.render("login");
+		
+	  });
+});
+
 
 app.post('/register/validate',function(req,res){
   //console.log(req.body);
