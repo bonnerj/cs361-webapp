@@ -43,6 +43,10 @@ app.get('/userLogin', function(req,res){
   res.render("login")
 });
 
+app.get('/forgotPassword', function(req,res){
+  res.render("forgotPass")
+})
+
 
 app.post('/login', function(req,res){
   var context = {}; 

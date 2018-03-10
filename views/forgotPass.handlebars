@@ -13,33 +13,39 @@
     	
     	{{> navbar }}
 
-		<h1>Log into your account</h1>
+		<h1>Reset Password</h1>
 
 		<form class="registerForm" method="POST" action="/login">
 
 			<p class="field">
 				<i class="far fa-user"></i>
-				<input type="text" name="userName" placeholder="User Name" required> <br>
+				<input type="email" name="email" placeholder="Confirm Email address" required>
+			</p>
+			<p class="field">
+				<i class="far fa-user"></i>
+				<input type="text" name="userName" placeholder="Confirm User Name" required> <br>
 			</p>
 
 			<p class="field">
 				<i class="fas fa-unlock"></i>
-     			<input type="password" name="password" placeholder="Password" required ><br>
+     			<input type="password" name="password" placeholder="New Password" required ><br>
      		</p>
+
+     		<p class="field">
+				<input type="password" id="verifyPassword" placeholder="Verify New Password" required>			
+			</p>
 
      		<p class="submit">
 		      	<button type="submit" value="Submit">
 		      	<i class="fas fa-arrow-alt-circle-right"></i>
 		      </button>
 		  	</p>
-		<div class = forgotPass>
-		  	<a href="/forgotPassword">Forgot Password? <i class="fa fa-sign-in" aria-hidden="true"></i></a>
-		</div>
+		
 
 		</form>
 
 	</body>
-	<script src="app.js"> </script>
+	<script src="app_passReset.js"> </script>
 
 
 </html>
