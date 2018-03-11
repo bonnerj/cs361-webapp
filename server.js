@@ -47,6 +47,14 @@ app.get('/forgotPassword', function(req,res){
   res.render("forgotPass")
 })
 
+app.get('/employee-home', function(req, res){
+  res.render("employeePage");
+})
+
+app.get('/hr-home', function(req, res){
+  res.render("hrPage");
+})
+
 app.post('/login', function(req,res){
   var context = {}; 
   var msg = {};
@@ -72,6 +80,7 @@ app.post('/login', function(req,res){
 
     // if username exists, query the password
     else {
+      // Check if user failed to login 5 times already
       if (rows[0].failedAttempts >= 5) {
         msg.status = "The referenced account is now locked. Please contact your administrator.";
         res.render('login', msg);
@@ -102,6 +111,7 @@ app.post('/login', function(req,res){
             next(err);
             return;
           }
+          // If too many failed attempts, send message that account is now locked
           if (rows[0].failedAttempts >= 4) {
             msg.status = "The referenced account is now locked. Please contact your administrator.";
             res.render('login', msg);
@@ -210,9 +220,6 @@ app.post('/register/validate',function(req,res){
     if (error) {
       return console.log(error);
     }
-    //console.log("The message successfully was sent!");
-    // Uncomment to see the email status sent
-    //console.log(info);
   });
   res.render("validate");
 });

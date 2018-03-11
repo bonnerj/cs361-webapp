@@ -4,6 +4,7 @@ body {
     background-size: cover; /*fill up the background*/
 	background-position: center;
 	background-repeat: repeat; 
+    padding-top: 65px;
 }
 
 h1{
