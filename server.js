@@ -55,6 +55,10 @@ app.get('/hr-home', function(req, res){
   res.render("hrPage");
 })
 
+app.get('/report', function(req, res){
+  res.render("report");
+})
+
 app.post('/login', function(req,res){
   var context = {}; 
   var msg = {};

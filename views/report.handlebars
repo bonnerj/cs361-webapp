@@ -1,5 +1,5 @@
 
-
+{{>navbar}}
 
 <div class="container-fluid" id="createReport">
 
@@ -7,17 +7,21 @@
 
 	<h3> Please fill in your information to the best of your knowledge and click submit.</h3>
 
-	<form class="editForm" method="POST" action="/report">
+	<form class="editForm" method="POST" action="/submitReport">
 				
 	<input type="hidden" value="{{this.id}}"" name="id">
 
 	<h3> Would you like to remain anonymous? </h3>
 				<p class="field">
-					<input type="radio" name="anonymous" value="yes" checked>
-					<input type="radio" name="revealed" value="no">
+
+					<label for="anonymous">YES</label>
+					<input type="radio" name="anonymous" id="anonymous" checked/> 
+
+					<label for="anonymous">NO</label>
+					<input type="radio" name="anonymous" id="revealed" value="no" onClick="confirmReveal()">
 				</p>
 	
-	<h3> Date of Incident </h3>
+	<h3> Date of Incident: </h3>
 				<p class="field">
 					<input type="date" name="incidentDate">
 				</p>
