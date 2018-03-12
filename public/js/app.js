@@ -20,5 +20,14 @@ password.onchange = validatePassword;
 confirm_password.onkeyup = validatePassword;
 
 
+function confirmReveal() {
+  if (confirm("Are you sure you wish to reveal your identity?") ) {
+    document.getElementById("revealed").checked = true;
+
+  } else {
+    document.getElementById("anonymous").checked = true;
+  }
+}
+
 
 
