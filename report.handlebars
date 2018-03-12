@@ -1,0 +1,40 @@
+
+
+
+<div class="container-fluid" id="createReport">
+
+	<h1> Sexual Misconduct Complaint </h1>
+
+	<h3> Please fill in your information to the best of your knowledge and click submit.</h3>
+
+	<form class="editForm" method="POST" action="/report">
+				
+	<input type="hidden" value="{{this.id}}"" name="id">
+
+	<h3> Would you like to remain anonymous? </h3>
+				<p class="field">
+					<input type="radio" name="anonymous" value="yes" checked>
+					<input type="radio" name="revealed" value="no">
+				</p>
+	
+	<h3> Date of Incident </h3>
+				<p class="field">
+					<input type="date" name="incidentDate">
+				</p>
+
+
+	<h3> Name of Accused: </h3>
+				<p class="field">
+					<input type="text" name="accused" required>
+				</p>
+				
+    <h3> Description of Events: </h3>
+				<p class="field">
+					<input type="text" name="description" required>
+				</p>
+
+	
+		<button class="btn-sm btn-submit" type="submit" id="update">Submit Report</button>
+	</form>
+
+</div>
