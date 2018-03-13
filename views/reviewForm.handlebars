@@ -1,0 +1,37 @@
+
+{{>navbar}}
+
+<h1>Please review your form before sending</h1>
+
+<br>
+
+<form method="POST" action="/submitted">
+<div class="reviewForm">
+
+	<h2 > Sexual Misconduct Complaint </h2>
+	<br>
+	<h5> Submission Date: {{reportDate}} </h5>
+	<input type="hidden" value="{{reportDate}}" name="reportDate">
+
+	<h5> Reporter: {{anonymous}} </h5>
+	<input type="hidden" value="{{anonymous}}" name="anonymous">
+
+	<h5> Accused: {{accused}} </h5>
+	<input type="hidden" value="{{accused}}" name="accused">
+
+	<h5> Date of Incident: {{incidentDate}} </h5>
+	<input type="hidden" value="{{incidentDate}}" name="incidentDate">
+
+	<br>
+
+	<h5>Description of Event(s):</h5>
+	<br>
+	<p>{{description}}</p>
+	<input type="hidden" value="{{description}}" name="description">
+
+</div>
+
+<button type="submit" class="btn btn-success reviewBtn send">Send</button>
+</form>
+
+<button onclick="window.history.back()" class="btn btn-primary reviewBtn edit">Edit</button

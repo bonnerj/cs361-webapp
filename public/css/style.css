@@ -1,4 +1,8 @@
 
+html {
+  overflow-y: scroll; 
+}
+
 body {
 	background: url("dust_scratches.png");
     background-size: cover; /*fill up the background*/
@@ -178,6 +182,26 @@ h4 {
     color: red;
 }
 
+.reviewForm {
+    padding: 1.5%;
+    border: 1px solid black;
+    margin: 0 30% 10% 30%;
+}
 
+.reviewBtn {
+    font-size: 50px;
+    position: absolute;
+    transition: .5s ease;   
+    width: 200px;
+    height: 100px;
+    top: 40%;
+ }
 
+.send {
+    left: 71%;
+}
+
+.edit {
+    right: 71%;
+}
 
