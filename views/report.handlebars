@@ -9,32 +9,32 @@
 
 	<form class="editForm" method="POST" action="/submitReport">
 				
-	<input type="hidden" value="{{this.id}}"" name="id">
+		<input type="hidden" value="{{this.id}}"" name="id">
 
-	<h3> Would you like to remain anonymous? </h3>
+		<h3> Would you like to remain anonymous? </h3>
 				<p class="field">
 
 					<label for="anonymous">YES</label>
-					<input type="radio" name="anonymous" id="anonymous" checked/> 
+					<input type="radio" name="anonymous" id="anonymous" value=1 checked/> 
 
 					<label for="anonymous">NO</label>
-					<input type="radio" name="anonymous" id="revealed" value="no" onClick="confirmReveal()">
+					<input type="radio" name="anonymous" id="revealed" value=0 onClick="confirmReveal()">
 				</p>
 	
-	<h3> Date of Incident: </h3>
+		<h3> Date of Incident: </h3>
 				<p class="field">
 					<input type="date" name="incidentDate">
 				</p>
 
 
-	<h3> Name of Accused: </h3>
+		<h3> Name of Accused: </h3>
 				<p class="field">
 					<input type="text" name="accused" required>
 				</p>
 				
-    <h3> Description of Events: </h3>
+   		 <h3> Description of Events: </h3>
 				<p class="field">
-					<input type="text" name="description" required>
+					<textarea name="description" required></textarea>
 				</p>
 
 	

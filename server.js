@@ -4,6 +4,7 @@ var nodemailer = require('nodemailer');
 var mysql = require('./dbcon.js');
 var handlebars = require('express-handlebars');
 var bodyParser = require("body-parser");
+var moment = require('moment');
 
 let transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -20,7 +21,7 @@ let transporter = nodemailer.createTransport({
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
-app.set('port', 50111);
+app.set('port', 50113);
 app.use(express.static("public"));
 //app.engine('handlebars', handlebars.engine);
 app.set("view engine", "handlebars");
@@ -58,6 +59,39 @@ app.get('/hr-home', function(req, res){
 app.get('/report', function(req, res){
   res.render("report");
 })
+
+app.post('/submitReport', function(req, res){
+  context = req.body;
+  context.reportDate = moment().format("YYYY-MM-DD");
+  console.log(context);
+
+  res.render('reviewForm', context);
+})
+
+app.post('/submitted', function(req, res){
+  context = req.body;
+  console.log("BODY BELOW");
+  console.log(context);
+  mysql.pool.query("INSERT INTO report (`reportDate`, `incidentDate`, `anonymous`, `accused`, `description`) VALUES (?,?,?,?,?)", 
+    [moment().format('YYYY-MM-DD'), context.incidentDate, context.anonymous, context.accused, context.description], function(err, result){
+    if(err){
+      next(err);
+      return;
+    }
+    console.log(result.insertId);
+    mysql.pool.query('SELECT * FROM report WHERE id=?', result.insertId, function(err, rows, fields){
+      if(err){
+      next(err);
+      return;
+      };
+      console.log(rows[0]);
+      rows[0].reportDate = moment().format("YYYY-MM-DD");
+      rows[0].incidentDate = moment().format("YYYY-MM-DD");
+      res.render('homepage');
+    })
+})
+})
+
 
 app.post('/login', function(req,res){
   var context = {}; 
