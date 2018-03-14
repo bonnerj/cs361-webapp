@@ -36,6 +36,10 @@ app.get('/',function(req,res){
   res.render("homepage");
 });
 
+app.get('/resources',function(req,res){
+  res.render("resources");
+});
+
 app.get('/register',function(req,res){
   res.render("registerForm");
 });
