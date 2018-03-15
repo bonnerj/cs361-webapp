@@ -92,7 +92,7 @@ app.post('/submitted', function(req, res){
       return;
       };
       console.log(rows[0]);
-      res.render('homepage');
+      res.render('formSent');
     })
   })
 })
