@@ -64,6 +64,10 @@ app.get('/report', function(req, res){
   res.render("report");
 })
 
+app.get('/faqs', function(req, res){
+  res.render("faqs");
+})
+
 app.post('/submitReport', function(req, res){
   context = req.body;
   context.reportDate = moment().format("YYYY-MM-DD");
@@ -74,7 +78,6 @@ app.post('/submitReport', function(req, res){
 
 app.post('/submitted', function(req, res){
   context = req.body;
-  console.log("BODY BELOW");
   console.log(context);
   mysql.pool.query("INSERT INTO report (`reportDate`, `incidentDate`, `anonymous`, `accused`, `description`) VALUES (?,?,?,?,?)", 
     [moment().format('YYYY-MM-DD'), context.incidentDate, context.anonymous, context.accused, context.description], function(err, result){
@@ -89,11 +92,9 @@ app.post('/submitted', function(req, res){
       return;
       };
       console.log(rows[0]);
-      rows[0].reportDate = moment().format("YYYY-MM-DD");
-      rows[0].incidentDate = moment().format("YYYY-MM-DD");
       res.render('homepage');
     })
-})
+  })
 })
 
 
